@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yongj\\OneDrive\\Documents\\Common\\repos\\c#\\LearnCSharp\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj": {}
+    "C:\\Users\\yongj\\source\\repos\\c#\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yongj\\OneDrive\\Documents\\Common\\repos\\c#\\LearnCSharp\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj": {
+    "C:\\Users\\yongj\\source\\repos\\c#\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yongj\\OneDrive\\Documents\\Common\\repos\\c#\\LearnCSharp\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj",
+        "projectUniqueName": "C:\\Users\\yongj\\source\\repos\\c#\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj",
         "projectName": "AdventOfCode2020",
-        "projectPath": "C:\\Users\\yongj\\OneDrive\\Documents\\Common\\repos\\c#\\LearnCSharp\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj",
+        "projectPath": "C:\\Users\\yongj\\source\\repos\\c#\\AdventOfCode2020\\AdventOfCode2020\\AdventOfCode2020.csproj",
         "packagesPath": "C:\\Users\\yongj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yongj\\OneDrive\\Documents\\Common\\repos\\c#\\LearnCSharp\\AdventOfCode2020\\AdventOfCode2020\\obj\\",
+        "outputPath": "C:\\Users\\yongj\\source\\repos\\c#\\AdventOfCode2020\\AdventOfCode2020\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
