@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "03ce4710-40ce-4d62-b801-12232bd0f2ad": {
+      "ProjectGuid": "03ce4710-40ce-4d62-b801-12232bd0f2ad",
+      "DisplayName": "AdventOfCode2020",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

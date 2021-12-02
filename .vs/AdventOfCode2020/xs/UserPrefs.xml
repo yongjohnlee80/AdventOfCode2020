@@ -1,0 +1,38 @@
+﻿<Properties StartupConfiguration="{03CE4710-40CE-4D62-B801-12232BD0F2AD}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AdventOfCode2020/Day2/AdventDay2Test.cs">
+    <Files>
+      <File FileName="AdventOfCode2020/Day2/AdventDay2Test.cs" Line="10" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="AdventOfCode2020" expanded="True">
+            <Node name="AdventOfCode2020" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True">
+                  <Node name="Microsoft.NET.Test.Sdk" selected="True" />
+                </Node>
+              </Node>
+              <Node name="Day2" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="AdventOfCode2020" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.AdventOfCode2020 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
