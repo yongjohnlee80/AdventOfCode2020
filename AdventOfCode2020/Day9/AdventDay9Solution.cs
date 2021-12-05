@@ -145,8 +145,8 @@ namespace AdventOfCode2020
         public long FindWeakness()
             /// Author's Note on TC
             /// The TC of this method is potentailly expensive
-            /// as k -> n, O(n^3*n^2) -> O(n^3)
-            /// as k -> 1, O(n^2*n^2) -> O(n^2)
+            /// as k -> n, O(n^3+n^2) -> O(n^3)
+            /// as k -> 1, O(n^2+n^2) -> O(n^2)
         {
             int a, b; // temporary variables to hold the position of preamble pair (indices).
             for (int i = n; i < numbers.Count; i++)
