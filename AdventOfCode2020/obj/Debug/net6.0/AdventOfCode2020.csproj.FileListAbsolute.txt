@@ -218,3 +218,5 @@ C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\obj\Debug\net6.
 C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\obj\Debug\net6.0\ref\AdventOfCode2020.dll
 C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\obj\Debug\net6.0\AdventOfCode2020.pdb
 C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\obj\Debug\net6.0\AdventOfCode2020.genruntimeconfig.cache
+C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.0\Day10\Day10Sample.txt
+C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.0\Day10\Day10Data.txt
