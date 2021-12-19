@@ -222,3 +222,4 @@ C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.
 C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.0\Day10\Day10Data.txt
 C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.0\Day12\Day12Data.txt
 C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.0\Day13\Day13Sample.txt
+C:\Users\yongj\source\repos\c#\AdventOfCode2020\AdventOfCode2020\bin\Debug\net6.0\Day14\Day14Data.txt
