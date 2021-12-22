@@ -264,7 +264,7 @@ namespace AdventOfCode2020.Day14
         {
             var dockingData = new Dictionary<long, DockingParam>();
             BitMask mask = new BitMask("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            LogStat log = new LogStat(); /* logging */
+            //LogStat log = new LogStat(); /* logging */
 
             foreach (var line in lines)
             {
@@ -273,7 +273,7 @@ namespace AdventOfCode2020.Day14
                     var temp = line.Replace("mask", "").Replace("=", "").Replace(" ", "");
                     mask = new BitMask(temp); // create the mask
 
-                    log.Append($"Mask : {temp}\n"); /* logging */
+                    //log.Append($"Mask : {temp}\n"); /* logging */
                 }
                 else /// For value
                 {
@@ -284,7 +284,7 @@ namespace AdventOfCode2020.Day14
                 }
             }
 
-            log.LogOnFile(); /* logging */
+            //log.LogOnFile(); /* logging */
 
             return dockingData;
 
@@ -298,13 +298,13 @@ namespace AdventOfCode2020.Day14
                     {
                         dockingData[id].Value = value;
 
-                        log.Append($"MEM[{id}] {value} *UPDATE*\n"); /* logging */
+                        //log.Append($"MEM[{id}] {value} *UPDATE*\n"); /* logging */
                     }
                     else /// if the memory location hasn't been allotted.
                     {
                         dockingData.Add(id, new DockingParam(id, value));
 
-                        log.Append($"MEM[{id}] {value}\n"); /* logging */
+                        //log.Append($"MEM[{id}] {value}\n"); /* logging */
 
                     }
                 }
