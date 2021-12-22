@@ -28,5 +28,25 @@ mem[8] = 0".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntri
             var test = new AdventDay14Solution("Day14Data.txt");
             Console.WriteLine(test.GetSolution1());
         }
+
+        [Test]
+        public void TestSample2()
+        {
+            string[] sample = @"
+mask = 000000000000000000000000000000X1001X
+mem[42] = 100
+mask = 00000000000000000000000000000000X0XX
+mem[26] = 1".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var test = new AdventDay14Solution(sample, new DataLoadingPart2());
+            Assert.That(test.GetSolution1(), Is.EqualTo(208));
+        }
+
+        [Test]
+        public void TestSolution2()
+        {
+            var test = new AdventDay14Solution("Day14Data.txt", new DataLoadingPart2());
+            Console.WriteLine(test.GetSolution1());
+        }
     }
 }
