@@ -122,7 +122,7 @@ namespace AdventOfCode2020.Day14
                     case 'X':
                         /// We have encountered the X, lets split up into two branches (X represenst both 0 and 1)
                         return BuildXAddresses(address | (1L << currentBit), list, currentBit - 1)
-                                + BuildXAddresses(address & (-2L << currentBit), list, currentBit - 1);
+                                + BuildXAddresses(address & ~(1L << currentBit), list, currentBit - 1);
                     case '1':
                         /// Ones are forced upon the address.
                         return BuildXAddresses(address | (1L << currentBit), list, currentBit - 1);
