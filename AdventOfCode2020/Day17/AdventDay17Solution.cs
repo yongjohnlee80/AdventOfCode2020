@@ -119,7 +119,7 @@ namespace AdventOfCode2020.Day17
     /// Secret Conway CUBES in Pocket Dimension..
     /// Good luck!
     /// 
-    /// The PART II threw me off at first, since I didn't expected to add another dimention to the 
+    /// The PART II threw me off at first, since I didn't expect to add another dimention to the 
     /// Pocket Universe. This was a new approach of making the puzzle more complicated.
     /// After some thought, I realized that my exising modules can easily accomodate another dimention by
     /// modifying only a couple of data structure to expand a feature of 4D without breaking the compatibility

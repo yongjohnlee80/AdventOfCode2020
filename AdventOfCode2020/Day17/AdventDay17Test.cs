@@ -74,5 +74,27 @@ namespace AdventOfCode2020.Day17
 
             Assert.AreEqual(848, result);
         }
+
+        [Test]
+        public void TestPart2()
+        {
+            string[] data = @"
+#.#.##.#
+#.####.#
+...##...
+#####.##
+#....###
+##..##..
+#..####.
+#...#.#.".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            PocketUniverse beta = new PocketUniverse(useHyperSpace: true);
+            beta.InitCubes(data);
+
+            int result = 0;
+            for (var i = 1; i <= 6; i++) result = beta.RunCycle();
+
+            Console.WriteLine(result);
+        }
     }
 }
