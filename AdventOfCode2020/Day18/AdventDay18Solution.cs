@@ -247,12 +247,16 @@ namespace AdventOfCode2020.Day18
             while (queue.Count > 0)
             {
                 item = queue.Dequeue();
+
+                /// Non operator components
                 if (item.GetType() == typeof(Number) || item.GetType() == typeof(Expression))
                 {
                     left = item;
                 }
                 else
                 {
+                    /// Priority operator
+                    /// Place them on the bottom left on the tree.
                     if (item.GetType() == typeof(Add))
                     {
                         Operator op = new Add();
@@ -261,6 +265,8 @@ namespace AdventOfCode2020.Day18
                         left = op;
                         root = op;
                     }
+                    /// Low priority operator
+                    /// Place them on the top of the tree and move the root.
                     else if (item.GetType() == typeof(Multiply))
                     {
                         Operator op = new Multiply();
@@ -273,12 +279,16 @@ namespace AdventOfCode2020.Day18
             }
             return root.Evaluate();
 
+            /// Build the right node tree for low priority operator.
             EComponent BuildRightTree()
             {
                 EComponent temp = null;
                 EComponent number = null;
+
+                /// Until end of the queue or low operator is peeked.
                 while (queue.Count > 0 && queue.Peek().GetType() != typeof(Multiply))
                 {
+                    /// Build a sub tree for all subsequent high priority operators.
                     temp = queue.Dequeue();
                     if (temp.GetType() != typeof(Add))
                     {
@@ -286,13 +296,10 @@ namespace AdventOfCode2020.Day18
                     }
                     else
                     {
-                        if (temp.GetType() == typeof(Add))
-                        {
-                            var op = (Operator)temp;
-                            op.Left = number;
-                            op.Right = queue.Dequeue();
-                            number = op;
-                        }
+                        var op = (Operator)temp;
+                        op.Left = number;
+                        op.Right = queue.Dequeue();
+                        number = op;
                     }
                 }
                 return number;
