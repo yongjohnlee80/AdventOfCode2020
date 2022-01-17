@@ -1,0 +1,12 @@
+Rules # 0 :  4 1 5
+Rules # 1 :  2 3 | 3 2
+Rules # 2 :  4 4 | 5 5
+Rules # 3 :  4 5 | 5 4
+Rules # 4 :  a
+Rules # 5 :  b
+^(a)(((a)(a)|(b)(b))((a)(b)|(b)(a))|((a)(b)|(b)(a))((a)(a)|(b)(b)))(b)$
+ababbb : True
+bababa : False
+abbbab : True
+aaabbb : False
+aaaabbb : False
