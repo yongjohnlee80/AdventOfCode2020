@@ -35,21 +35,7 @@ aaaabbb".Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
         public void Part1Test()
         {
             MonsterMessage part1 = new MonsterMessage();
-            Console.WriteLine(part1.Part1Answer("AdventDay19Data.txt"));
-        }
-
-        [Test]
-        public void Part2Sample()
-        {
-            MonsterMessage part2 = new MonsterMessage();
-            Assert.AreEqual(12, part2.Part2Answer("AdventDay19Sample.txt"));
-        }
-
-        [Test]
-        public void Part2Test()
-        {
-            MonsterMessage part2 = new MonsterMessage();
-            Console.WriteLine(part2.Part2Answer("AdventDay19Data.txt"));
+            Console.WriteLine(part1.Part1Answer("Day19Data.txt"));
         }
     }
 }
