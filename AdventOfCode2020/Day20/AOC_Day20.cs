@@ -48,6 +48,33 @@ namespace AdventOfCode2020.Day20
             string reverseString = new string(temp);
             if (reverseString == str2) Console.WriteLine("Works, too!");
         }
+
+        [Test]
+        public void TestRotate()
+        {
+            string[] data = {
+"ABCDEFGHIJ",
+"1234567890",
+"abcdefghij",
+"KLMNOPQRST",
+"UVWXYZABCD",
+"klmnopqrst",
+"uvwxysabcd",
+"!@#$%^&*()",
+"0987654321",
+"YONGSUNGLE" };
+
+            Tile test = new Tile(1234);
+            test.Load(data);
+
+            test.FlipLeftRight();
+            //test.Rotate();
+            //test.Rotate();
+            //test.Rotate();
+            //test.Rotate();
+
+            Console.WriteLine(test.GetInfo());
+        }
     }
 
     public enum EdgePosition
@@ -63,6 +90,7 @@ namespace AdventOfCode2020.Day20
         private int parentID;
         private string data;
         private TileEdge connectingEdge = null;
+
         public EdgePosition Position { get; set; }
 
         public TileEdge ConnectingEdge { get { return connectingEdge; } }
@@ -73,12 +101,6 @@ namespace AdventOfCode2020.Day20
             this.parentID = parentID;
             this.data = edgeData;
             this.Position = position;
-        }
-
-        public bool IsCompatible(TileEdge other)
-        {
-            if (this.data == other.data) return true;
-            return false;
         }
 
         public bool IsCompatible(string edgeData)
@@ -95,25 +117,18 @@ namespace AdventOfCode2020.Day20
             return reverse;
         }
 
-        public bool IsReverseCompatible(TileEdge other)
-        {
-            if (GetReverse() == other.data) return true;
-            return false;
-        }
-
         public bool IsReverseCompatible(string edgeData)
         {
             if (GetReverse() == edgeData) return true;
             return false;
         }
 
-        public bool TryConnect(TileEdge other)
+        public bool IsPositionCompatible(TileEdge other)
         {
-            if(IsCompatible(other) || IsReverseCompatible(other))
-            {
-                connectingEdge = other;
-                return true;
-            }
+            if (Position == EdgePosition.Top && other.Position == EdgePosition.Bottom) return true;
+            if (Position == EdgePosition.Left && other.Position == EdgePosition.Right) return true;
+            if (Position == EdgePosition.Bottom && other.Position == EdgePosition.Top) return true;
+            if (Position == EdgePosition.Right && other.Position == EdgePosition.Left) return true;
             return false;
         }
 
@@ -201,60 +216,63 @@ namespace AdventOfCode2020.Day20
             return null;
         }
 
-        private void RotateClockwise()
+        private void UpdateEdgePositions()
         {
-            TileEdge temp = edges[0];
-            edges[0] = edges[2];
-            edges[2] = edges[1];
-            edges[1] = edges[3];
-            edges[3] = temp;
+            edges[0].Position = EdgePosition.Top;
+            edges[1].Position = EdgePosition.Bottom;
+            edges[2].Position = EdgePosition.Left;
+            edges[3].Position = EdgePosition.Right;
         }
 
-        private void RotateCounterClockwise()
+        public string[] RowToColumn(string[] text)
+        {
+            int length = text.Length;
+            List<string> result = new List<string>();
+
+            for(int i = 0; i < length; i++)
+            {
+                char[] col = new char[length];
+                for(int j = 0; j < length; j++)
+                {
+                    col[j] = data[j][i];
+                }
+                result.Add(new string(col));
+            }
+            return result.ToArray();
+        }
+
+        public void Rotate()
         {
             TileEdge temp = edges[0];
             edges[0] = edges[3];
             edges[3] = edges[1];
             edges[1] = edges[2];
             edges[2] = temp;
+            UpdateEdgePositions();
+
+            this.data = RowToColumn(this.data);
+            Array.Reverse(this.data);
         }
 
-        private void FlipUpDown()
+        public void FlipUpDown()
         {
             TileEdge temp = edges[0];
             edges[0] = edges[1];
             edges[1] = temp;
             edges[2].Flip();
             edges[3].Flip();
+            UpdateEdgePositions();
+
+            Array.Reverse(this.data);
         }
 
-        private void FlipLeftRight()
+        public void FlipLeftRight()
         {
-            TileEdge temp = edges[2];
-            edges[2] = edges[3];
-            edges[3] = temp;
-            edges[0].Flip();
-            edges[1].Flip();
-        }
-
-        public void RotateTile(int nTurns = 1)
-        {
-            if(nTurns > 0)
-            {
-                while(nTurns > 0)
-                {
-                    RotateCounterClockwise();
-                    nTurns--;
-                }
-            }
-            else
-            {
-                while(nTurns < 0)
-                {
-                    RotateClockwise();
-                    nTurns++;
-                }
-            }
+            Rotate();
+            FlipUpDown();
+            Rotate();
+            Rotate();
+            Rotate();
         }
 
         public bool IsCornerTile()
@@ -271,6 +289,52 @@ namespace AdventOfCode2020.Day20
             return false;
         }
 
+        public bool ConnectTo(Tile other)
+        {
+            TileEdge edge1 = null;
+            TileEdge edge2 = null;
+
+            foreach (var i in edges)
+            {
+                var matchingEdge = other.GetEdge(i.GetValue());
+                if (matchingEdge != null)
+                {
+                    edge1 = i;
+                    edge2 = matchingEdge;
+                    edge1.ConnectTo(edge2);
+                    edge2.ConnectTo(edge1);
+                    break;
+                }
+                matchingEdge = other.GetEdge(i.GetReverse());
+                if (matchingEdge != null)
+                {
+                    switch (matchingEdge.Position)
+                    {
+                        case EdgePosition.Left:
+                        case EdgePosition.Right:
+                            FlipLeftRight();
+                            break;
+                        case EdgePosition.Top:
+                        case EdgePosition.Bottom:
+                            FlipUpDown();
+                            break;
+                        default:
+                            throw new Exception("Impossible!");
+                    }
+                    edge1 = i;
+                    edge2 = matchingEdge;
+                    edge1.ConnectTo(edge2);
+                    edge2.ConnectTo(edge1);
+                    break;
+                }
+            }
+
+            if(edge1 == null || edge2 == null) return false;
+
+            while(!edge1.IsPositionCompatible(edge2)) Rotate();
+            return true;
+        }
+
         public string GetInfo()
         {
             StringBuilder info = new StringBuilder();
@@ -279,16 +343,14 @@ namespace AdventOfCode2020.Day20
             {
                 if(i.ConnectingEdge != null)
                 {
-                    info.Append($"({i.ConnectingEdge.ParentID})");
+                    info.Append($"({i.GetValue()}:{i.ConnectingEdge.ParentID})");
                 }
                 else
                 {
-                    info.Append($"(None)");
+                    info.Append($"({i.GetValue()}:None)");
                 }
             }
             info.Append("\n");
-            //info.Append($"Tile ID {tileID}, top({edges[0].ConnectingEdge.ParentID}), bottom({edges[1].ConnectingEdge.ParentID}), " +
-            //    $"left({edges[2].ConnectingEdge.ParentID}), right({edges[3].ConnectingEdge.ParentID})\n");
             foreach (var i in this.data)
             {
                 info.Append($"{i}\n");
@@ -302,6 +364,7 @@ namespace AdventOfCode2020.Day20
         private Dictionary<int, Tile> tiles = new Dictionary<int, Tile>();
 
         private Dictionary<string, List<int>> edgeMap = new Dictionary<string, List<int>>();
+        private List<Tile> corners = new List<Tile>();
 
         public void LoadImage(string fileName)
         {
@@ -316,26 +379,50 @@ namespace AdventOfCode2020.Day20
                 foreach(var edge in tile.GetEdges()) // count = 4 : constant time complexity.
                 {
                     var temp = edgeMap[edge.GetValue()];
-                    if (temp.Count > 1)
+                    if (temp.Count == 2)
                     {
-                        foreach(int i in temp) // count = 2 : constant time complexity.
-                        {
-                            if(tile.ID != i)
-                            {
-                                var matchingEdge = tiles[i].GetEdge(edge.GetValue());
-                                if (matchingEdge != null)
-                                {
-                                    edge.ConnectTo(matchingEdge);
-                                }
-                                else
-                                {
-                                    matchingEdge = tiles[i].GetEdge(edge.GetReverse());
-                                    // TODO: tiles[i].Flip correctly!!!
-                                    edge.ConnectTo(matchingEdge);
-                                }
-                            }
-                        }
+                        tiles[temp[1]].ConnectTo(tiles[temp[0]]);
+                        //foreach (int i in temp) // count = 2 : constant time complexity.
+                        //{
+                        //    if (tile.ID != i)
+                        //    {
+                        //        var matchingEdge = tiles[i].GetEdge(edge.GetValue());
+                        //        if (matchingEdge != null)
+                        //        {
+                        //            edge.ConnectTo(matchingEdge);
+                        //        }
+                        //        else
+                        //        {
+                        //            matchingEdge = tiles[i].GetEdge(edge.GetReverse());
+                        //            switch (matchingEdge.Position)
+                        //            {
+                        //                case EdgePosition.Left:
+                        //                case EdgePosition.Right:
+                        //                    this.tiles[i].FlipLeftRight();
+                        //                    break;
+                        //                case EdgePosition.Top:
+                        //                case EdgePosition.Bottom:
+                        //                    this.tiles[i].FlipUpDown();
+                        //                    break;
+                        //                default:
+                        //                    throw new Exception("Impossible!");
+                        //            }
+                        //            edge.ConnectTo(matchingEdge);
+                        //        }
+                        //    }
+                        //}
                     }
+                }
+            }
+        }
+
+        private void FindCorners()
+        {
+            foreach(var tile in this.tiles.Values)
+            {
+                if(tile.IsCornerTile())
+                {
+                    corners.Add(tile);
                 }
             }
         }
@@ -390,17 +477,16 @@ namespace AdventOfCode2020.Day20
             }
 
             ConnectTileEdges();
+            FindCorners();
         }
 
         public long Part1Answer()
         {
             long answer = 1;
-            foreach(var tile in tiles.Values)
+            //answer =  corners.Aggregate(1, (answer, next) => answer * next.ID); // next.ID is int32 but answer must be int64... how?
+            foreach (var corner in corners)
             {
-                if(tile.IsCornerTile())
-                {
-                    answer *= tile.ID;
-                }
+                answer *= corner.ID;
             }
             return answer;
         }
