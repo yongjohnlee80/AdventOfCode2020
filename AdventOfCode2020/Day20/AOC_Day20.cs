@@ -764,11 +764,7 @@ namespace AdventOfCode2020.Day20
         public long Part1Answer()
         {
             long answer = 1;
-            //answer =  corners.Aggregate(1, (answer, next) => answer * next.ID); // next.ID is int32 but answer must be int64... how?
-            foreach (var corner in corners)
-            {
-                answer *= corner.ID;
-            }
+            answer =  corners.Aggregate(1L, (answer, next) => answer * next.ID);
             return answer;
         }
 
