@@ -1,0 +1,13 @@
+List of Ingredients
+mxmxvkd : 3
+kfcds : 1
+sqjhc : 3
+nhms : 1
+trh : 1
+fvjkl : 2
+sbzzf : 2
+
+List of Allergens
+dairy : mxmxvkd 
+fish : sqjhc 
+soy : fvjkl 
