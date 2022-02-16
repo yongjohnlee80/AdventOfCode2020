@@ -75,14 +75,18 @@ namespace AdventOfCode2020.Day23
     {
         private CupNode head = null;
         private CupNode current = null;
-        private int maxValue = 0;
 
+        // Part 2 Optimization Add-On
+        private int maxValue = 0;
         private Dictionary<int, CupNode> nodeTable = new Dictionary<int, CupNode>();
 
-
+        /// <summary>
+        /// O(1)
+        /// </summary>
+        /// <param name="value"></param>
         private void Insert(int value)
         {
-            if(value > maxValue) maxValue = value;
+            if(value > maxValue) maxValue = value; // Max Value for wrapping.
 
             if(head == null)
             {
@@ -96,14 +100,16 @@ namespace AdventOfCode2020.Day23
                 current = temp;
             }
 
+            /// Hashing for indexing, improving from O(n) to O(1).
             nodeTable.Add(value, current);
         }
 
         /// <summary>
         /// Link two CupNodes and return the latter one.
+        /// Gives flexibility to switch to doubly linked list.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">Preceding Cup</param>
+        /// <param name="b">Following Cup</param>
         /// <returns></returns>
         private CupNode LinkCups(CupNode a, CupNode b)
         {
@@ -112,7 +118,8 @@ namespace AdventOfCode2020.Day23
         }
 
         /// <summary>
-        /// returns the head of three cup nodes
+        /// returns the head of three cup nodes, which is disconnected from the
+        /// cyclic linked list. O(1)
         /// </summary>
         /// <returns></returns>
         private CupNode RemoveThreeCups()
@@ -124,19 +131,25 @@ namespace AdventOfCode2020.Day23
 
         /// <summary>
         /// Insert back the three cups right after the destination node.
+        /// O(1)
         /// </summary>
         /// <param name="threeCups"></param>
         /// <param name="destination"></param>
         private void InsertThreeCups(CupNode threeCups, CupNode destination)
         {
             var temp = destination.Next;
-            LinkCups(destination, threeCups);
+            LinkCups(destination, threeCups); // Insert after destination
             LinkCups(threeCups.Next.Next, temp);
         }
 
+        /// <summary>
+        /// Following the language of game description.
+        /// (inefficient)
+        /// </summary>
+        /// <returns></returns>
         private int IdentifyDestinationValue()
         {
-            var cups = ToArray();
+            var cups = ToArray(); // Bottle Neck.
             var dest = current.Value - 1;
             while(true)
             {
@@ -149,20 +162,28 @@ namespace AdventOfCode2020.Day23
                     --dest;
                     if(dest < 1) // 1 is the lowest input given by the puzzle.
                     {
-                        dest = cups.Max();
+                        dest = cups.Max(); // Potential Bottle Neck. Superceded by keeping a max member value.
                         return dest;
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Version 2
+        /// </summary>
+        /// <param name="threeCups"></param>
+        /// <returns></returns>
         private int IdentifyDestinationValue2(CupNode threeCups)
         {
+            /// Instead of looking at the rest of cups, focus on the three cups 
+            /// the crab has taken to move.
             int[] threes = new int[3] { 
                     threeCups.Value,
                     threeCups.Next.Value,
                     threeCups.Next.Next.Value };
 
+            /// Initial destination value.
             int dest = current.Value - 1;
 
             while(true)
@@ -179,6 +200,12 @@ namespace AdventOfCode2020.Day23
             }
         }
 
+        /// <summary>
+        /// Improved version with dynamic caching (hashmap).
+        /// O(n) to O(1)
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public CupNode FindNode(int value)
         {
             //var temp = current;
@@ -205,20 +232,25 @@ namespace AdventOfCode2020.Day23
 
         public void MakeCrabMove()
         {
-            // First Step
+            // First Step - Take 3 Cups
             var threeCups = RemoveThreeCups();
 
-            // Second Step
+            // Second Step - Find Destination Cup
             var destValue = IdentifyDestinationValue2(threeCups);
             var destination = FindNode(destValue);
 
-            // Third Step
+            // Third Step - Insert 3 Cups at the destination.
             InsertThreeCups(threeCups, destination);
 
-            // Fourth Step
+            // Fourth Step - Move the current position.
             current = current.Next;
         }
 
+        /// <summary>
+        /// Utility for character conversion.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private int[] StringToIntArray(string data)
         {
             List<int> cups = new List<int>();
