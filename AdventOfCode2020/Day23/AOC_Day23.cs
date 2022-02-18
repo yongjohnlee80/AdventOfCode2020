@@ -265,6 +265,9 @@ namespace AdventOfCode2020.Day23
 
         /// <summary>
         /// Parser
+        /// Note: Although current cup is linked to the head to make it cyclic, 
+        /// the current position is still at the tail and needs to be set to
+        /// desired location before commencing computations.
         /// </summary>
         /// <param name="data"></param>
         public void InitCups(string data)
@@ -320,6 +323,7 @@ namespace AdventOfCode2020.Day23
                 Insert(i);
             }
             LinkCups(current, head);
+
             current = head;
 
 
