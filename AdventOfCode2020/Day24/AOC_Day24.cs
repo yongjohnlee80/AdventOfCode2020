@@ -99,7 +99,7 @@ wseweeenwnesenwwwswnew".Split("\r\n", StringSplitOptions.RemoveEmptyEntries);
             HexCoordinate position = new HexCoordinate();
 
             char prev = ' ';
-            foreach (var current in instruction.ToCharArray())
+            foreach (char current in instruction)
             {
                 if (current == 'w')
                 {
